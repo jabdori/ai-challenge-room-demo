@@ -6,7 +6,7 @@
 
 > The public demo is an interactive static walkthrough built from synthetic recorded evidence. It makes no live AI calls and requires no access code. The [restricted Build Week judging app](https://ai-challenge-room.aside-hazle.chatgpt.site) remains separate and still requires the private judge code.
 
-![AI Challenge Room comparing three AI configurations on the same customer-support task](screenshots/compare.png)
+![AI Challenge Room static recorded demo showing Candidate A, B, and C moving through hard gates, human review, a Decision Memo, and regression protection](static-demo/public/og.png)
 
 ## The problem
 
