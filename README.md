@@ -2,9 +2,9 @@
 
 **Compare a single LLM, retrieval-augmented generation (RAG), and a read-only tool agent on the same enterprise task—then let a human choose the simplest sufficient option with evidence.**
 
-[Live demo](https://ai-challenge-room.aside-hazle.chatgpt.site) · [2:47 demo video](https://youtu.be/KZQmArkgA4Q) · [Devpost project](https://devpost.com/software/ai-challenge-room)
+[Try the static recorded demo](https://ai-challenge-room-static-demo.aside-hazle.chatgpt.site) · [Watch the 2:47 demo video](https://youtu.be/KZQmArkgA4Q) · [Devpost project](https://devpost.com/software/ai-challenge-room)
 
-> This is a public portfolio snapshot of the OpenAI Build Week submission. The original development and judging repository remains private. The hosted demo uses a restricted judge access code during the judging period; the full product flow is available in the video and screenshots below.
+> The public demo is an interactive static walkthrough built from synthetic recorded evidence. It makes no live AI calls and requires no access code. The [restricted Build Week judging app](https://ai-challenge-room.aside-hazle.chatgpt.site) remains separate and still requires the private judge code.
 
 ![AI Challenge Room comparing three AI configurations on the same customer-support task](screenshots/compare.png)
 
