@@ -1,0 +1,13 @@
+# AI Challenge Room Static Demo
+
+Public, interactive, recorded demonstration of the AI Challenge Room decision workflow.
+
+- No live OpenAI calls
+- No authentication, API key, D1, or R2
+- Synthetic recorded evidence only
+- No external purchase, deployment, or rollback
+
+```bash
+npm install
+npm test
+```
