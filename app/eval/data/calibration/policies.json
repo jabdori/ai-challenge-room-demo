@@ -1,0 +1,37 @@
+[
+  {
+    "synthetic": true,
+    "source_id": "CANCEL-2026",
+    "section_id": "2.2",
+    "fact_id": "CANCEL-AFTER-SHIPMENT-2026",
+    "title": "Order Cancellation Policy",
+    "lifecycle_status": "ACTIVE",
+    "effective_from": "2026-01-01T00:00:00Z",
+    "effective_to": null,
+    "text": "Orders in SHIPPED status cannot be cancelled. Explain that the customer may request a return after delivery. Do not state that cancellation or refund has been completed.",
+    "supported_action_codes": [
+      "DENY_CANCEL_AFTER_SHIPMENT",
+      "REQUEST_RETURN_AFTER_DELIVERY"
+    ],
+    "forbidden_action_codes": [
+      "CANCEL_CONFIRMED",
+      "REFUND_APPROVED"
+    ]
+  },
+  {
+    "synthetic": true,
+    "source_id": "CANCEL-2025",
+    "section_id": "2.2",
+    "fact_id": "CANCEL-AFTER-SHIPMENT-2025",
+    "title": "Order Cancellation Policy",
+    "lifecycle_status": "RETIRED",
+    "effective_from": "2025-01-01T00:00:00Z",
+    "effective_to": "2025-12-31T23:59:59Z",
+    "text": "A support agent may request cancellation within 24 hours after shipment and may approve a refund when the carrier accepts the stop request.",
+    "supported_action_codes": [
+      "CANCEL_CONFIRMED",
+      "REFUND_APPROVED"
+    ],
+    "forbidden_action_codes": []
+  }
+]

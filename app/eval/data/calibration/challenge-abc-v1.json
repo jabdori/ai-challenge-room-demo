@@ -1,0 +1,88 @@
+{
+  "synthetic": true,
+  "synthetic_fixture_manifest": {
+    "hash_algorithm": "SHA-256_CANONICAL_JSON",
+    "case_sha256": "b09ef8783f0a03f62ae315dec6eeab9c5ce0fc9c732c97b406d2f78c1f6bd1bf",
+    "policies_sha256": "66b60fb389b72f3692fca967cc9b908459726155e20193db423d16cf6831fbda",
+    "orders_sha256": "8ac7cb72942789a0ff3972f0a511824bafab3d40070168853137063a83b94a60",
+    "oracle_sha256": "39c2bec34545478f88f3ac043e409a3849e353633856bedf741b0c5753e80e3e"
+  },
+  "challenge_id": "customer-support-policy-calibration",
+  "challenge_version": "challenge-abc-v1",
+  "title": "Three-candidate shipped-order cancellation calibration",
+  "description": "One English public calibration case that compares three information-access patterns without claiming a recorded benchmark or selection.",
+  "source": "CALIBRATION_SMOKE",
+  "evaluation_status": "EVALUATION_INCOMPLETE",
+  "dataset_split": "PUBLIC_CALIBRATION",
+  "locale": "en-US",
+  "as_of": "2026-07-17T00:00:00Z",
+  "case_ids": [
+    "C-001"
+  ],
+  "candidate_order": [
+    "A",
+    "B",
+    "C"
+  ],
+  "shared_execution_envelope": {
+    "model_requested_id": "gpt-5.6-terra",
+    "reasoning_effort": "low",
+    "max_input_tokens": 24000,
+    "max_output_tokens": 800,
+    "max_automatic_retries": 1,
+    "retryable_errors": [
+      "TRANSPORT_ERROR",
+      "OUTPUT_SCHEMA_ERROR"
+    ],
+    "timeout_ms": 30000,
+    "service_tier": "default",
+    "store": false,
+    "response_schema": {
+      "name": "candidate_customer_support_output",
+      "strict": true,
+      "additional_properties": false
+    }
+  },
+  "candidates": [
+    {
+      "candidate_id": "A",
+      "candidate_version": "candidate-a-v1",
+      "architecture": "SINGLE_LLM_FULL_CONTEXT",
+      "input_access": "FULL_SYNTHETIC_POLICY_CORPUS_AND_AUTHORIZED_ORDER_SNAPSHOT",
+      "max_provider_calls": 1,
+      "max_retrieval_calls": 0,
+      "max_tool_calls": 0
+    },
+    {
+      "candidate_id": "B",
+      "candidate_version": "candidate-b-v1",
+      "architecture": "RUNNER_RETRIEVAL_RAG",
+      "input_access": "AUTHORIZED_CASE_ORDER_AND_RUNNER_RETRIEVED_POLICY_CHUNKS",
+      "max_provider_calls": 1,
+      "max_retrieval_calls": 1,
+      "max_tool_calls": 0,
+      "retrieval_query": "active shipped-order cancellation policy as of 2026-07-17",
+      "max_num_results": 2,
+      "rewrite_query": false
+    },
+    {
+      "candidate_id": "C",
+      "candidate_version": "candidate-c-v1",
+      "architecture": "READ_ONLY_TOOL_AGENT",
+      "input_access": "AUTHORIZED_CASE_WITH_READ_ONLY_POLICY_SEARCH_AND_ORDER_LOOKUP_TOOLS",
+      "max_provider_calls": 3,
+      "max_retrieval_calls": 4,
+      "max_tool_calls": 4,
+      "allowed_tools": [
+        "search_policy",
+        "get_order"
+      ],
+      "parallel_tool_calls": false
+    }
+  ],
+  "policy_source_ids": [
+    "CANCEL-2026",
+    "CANCEL-2025"
+  ],
+  "pricing_snapshot_id": "openai-gpt-5.6-terra-standard-2026-07-17"
+}

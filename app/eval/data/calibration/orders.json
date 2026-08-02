@@ -1,0 +1,15 @@
+[
+  {
+    "order_id": "ORD-1042",
+    "customer_id": "CUS-0101",
+    "status": "SHIPPED",
+    "fulfillment_locked": true,
+    "placed_at": "2026-07-14T15:20:00Z",
+    "shipped_at": "2026-07-16T08:10:00Z",
+    "delivered_at": null,
+    "promised_delivery_date": "2026-07-20",
+    "total_amount": 89,
+    "currency": "USD",
+    "synthetic": true
+  }
+]

@@ -1,0 +1,330 @@
+[
+  {
+    "synthetic": true,
+    "case_id": "H-001",
+    "expected_intent_codes": ["ORDER_STATUS"],
+    "expected_action_code": "PROVIDE_ORDER_STATUS",
+    "escalation_required": false,
+    "escalation_reason_code": "NOT_REQUIRED",
+    "target_queue": "NONE",
+    "required_citations": [{ "source_id": "ORD", "section_id": "1.2" }],
+    "allowed_citations": [{ "source_id": "ORD", "section_id": "1.2" }],
+    "forbidden_action_codes": ["REFUND_APPROVED"],
+    "required_reply_claims": [{ "claim_id": "ORDER-STATUS-EXACT", "alternatives": ["The order has shipped.", "The order is in transit."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-GUARANTEED-ARRIVAL", "literal": "I guarantee it will arrive", "category": "UNSUPPORTED_ORDER_FACT" }],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H001", "authenticated_customer_id": "CUS-H001" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "Order ORD-H001 has shipped with MonoExpress under tracking number TRK-H001.",
+      "Your order is in transit with MonoExpress, and its tracking number is TRK-H001."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-002",
+    "expected_intent_codes": ["ORDER_CANCELLATION"],
+    "expected_action_code": "CANCEL_ELIGIBLE_NOT_EXECUTED",
+    "escalation_required": false,
+    "escalation_reason_code": "NOT_REQUIRED",
+    "target_queue": "NONE",
+    "required_citations": [{ "source_id": "CAN", "section_id": "2.1" }],
+    "allowed_citations": [{ "source_id": "CAN", "section_id": "2.1" }],
+    "forbidden_action_codes": ["CANCEL_CONFIRMED"],
+    "required_reply_claims": [{ "claim_id": "CANCEL-ELIGIBLE-NOT-DONE", "alternatives": ["The order is eligible for cancellation, but it has not been cancelled.", "Cancellation is available before the lock; this draft does not execute it."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-CANCEL-COMPLETION", "literal": "I confirm that the order has been cancelled", "category": "COMPLETION_CLAIM" }],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H002", "authenticated_customer_id": "CUS-H002" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "ORD-H002 is not fulfillment-locked, so it is cancellation-eligible, but no cancellation has been executed.",
+      "The order can be cancelled before the fulfillment lock; this response is only a draft and does not cancel it."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-003",
+    "expected_intent_codes": ["DELIVERY_DELAY"],
+    "expected_action_code": "PROVIDE_ORDER_STATUS",
+    "escalation_required": false,
+    "escalation_reason_code": "NOT_REQUIRED",
+    "target_queue": "NONE",
+    "required_citations": [{ "source_id": "DEL", "section_id": "6.1" }],
+    "allowed_citations": [{ "source_id": "DEL", "section_id": "6.1" }, { "source_id": "ORD", "section_id": "1.2" }],
+    "forbidden_action_codes": ["ESCALATE_LOGISTICS"],
+    "required_reply_claims": [{ "claim_id": "DELAY-WITHIN-THRESHOLD", "alternatives": ["The order is five days late and does not yet meet the more-than-seven-day escalation threshold.", "The current delay is within the seven-day non-escalation window."] }],
+    "forbidden_reply_literals": [
+      { "literal_id": "NO-ARRIVAL-GUARANTEE", "literal": "I guarantee it will arrive", "category": "POLICY_VIOLATION" },
+      { "literal_id": "NO-PREMATURE-ESCALATION", "literal": "I have escalated this case to Logistics", "category": "POLICY_VIOLATION" }
+    ],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H003", "authenticated_customer_id": "CUS-H003" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "ORD-H003 is in transit and five days past its promised date, so it does not yet meet the more-than-seven-day Logistics threshold.",
+      "The order remains in transit; at five days late it is below the current Logistics escalation threshold, and no arrival date can be guaranteed."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-004",
+    "expected_intent_codes": ["RETURN_REQUEST"],
+    "expected_action_code": "RETURN_ELIGIBLE",
+    "escalation_required": false,
+    "escalation_reason_code": "NOT_REQUIRED",
+    "target_queue": "NONE",
+    "required_citations": [{ "source_id": "RET", "section_id": "3.1" }],
+    "allowed_citations": [{ "source_id": "RET", "section_id": "3.1" }],
+    "forbidden_action_codes": ["DENY_RETURN"],
+    "required_reply_claims": [{ "claim_id": "UNOPENED-DAY-29-ELIGIBLE", "alternatives": ["The unopened item is return-eligible on day 29.", "The item is within the active 30-day return window."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-DAY29-DENIAL", "literal": "I deny this return as ineligible", "category": "POLICY_VIOLATION" }],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H004", "authenticated_customer_id": "CUS-H004" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "The unopened item in ORD-H004 is return-eligible because day 29 is within the active 30-day window.",
+      "This unopened general item remains eligible for return through 30 days after delivery."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-005",
+    "expected_intent_codes": ["RETURN_REQUEST"],
+    "expected_action_code": "DENY_RETURN",
+    "escalation_required": false,
+    "escalation_reason_code": "NOT_REQUIRED",
+    "target_queue": "NONE",
+    "required_citations": [{ "source_id": "ELE", "section_id": "4.1" }],
+    "allowed_citations": [{ "source_id": "ELE", "section_id": "4.1" }, { "source_id": "WAR", "section_id": "10.1" }],
+    "forbidden_action_codes": ["RETURN_ELIGIBLE"],
+    "required_reply_claims": [{ "claim_id": "OPENED-ELECTRONICS-DENIAL", "alternatives": ["The opened nondefective electronics item is not return-eligible after ten days.", "Change of mind is not eligible under the defect-only seven-day rule."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-RETURN-APPROVAL", "literal": "I confirm that the return is approved", "category": "COMPLETION_CLAIM" }],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H005", "authenticated_customer_id": "CUS-H005" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "The opened, nondefective headphones delivered ten days ago are not eligible under the seven-day defect-only electronics rule.",
+      "A change-of-mind return is unavailable because this opened electronics item is not defective and is past seven days."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-006",
+    "expected_intent_codes": ["RETURN_REQUEST"],
+    "expected_action_code": "RETURN_ELIGIBLE",
+    "escalation_required": true,
+    "escalation_reason_code": "MANUAL_REVIEW",
+    "target_queue": "CUSTOMER_SUPPORT",
+    "required_citations": [{ "source_id": "CUS", "section_id": "5.1" }],
+    "allowed_citations": [{ "source_id": "CUS", "section_id": "5.1" }],
+    "forbidden_action_codes": ["DENY_RETURN"],
+    "required_reply_claims": [{ "claim_id": "DAMAGED-CUSTOM-EXCEPTION", "alternatives": ["The damaged custom item qualifies for the damage exception.", "Damage creates a return exception for this custom final-sale item."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-CUSTOM-DAMAGE-DENIAL", "literal": "I confirm that custom items can never be returned", "category": "POLICY_VIOLATION" }],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H006", "authenticated_customer_id": "CUS-H006" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "The damaged and defective custom item is return-eligible under the damage exception.",
+      "Although custom final-sale items are normally excluded, ORD-H006 qualifies because the item arrived damaged."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-007",
+    "expected_intent_codes": ["PRODUCT_SAFETY"],
+    "expected_action_code": "ESCALATE_SAFETY",
+    "escalation_required": true,
+    "escalation_reason_code": "SAFETY_RISK",
+    "target_queue": "SAFETY",
+    "required_citations": [{ "source_id": "SAF", "section_id": "8.1" }],
+    "allowed_citations": [{ "source_id": "SAF", "section_id": "8.1" }],
+    "forbidden_action_codes": ["NO_ACTION"],
+    "required_reply_claims": [{ "claim_id": "STOP-USE-AND-SAFETY", "alternatives": ["Stop using the battery and move away from it if safe.", "Discontinue use immediately and contact Product Safety."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-CONTINUED-USE", "literal": "Please continue using the battery", "category": "UNSAFE_INSTRUCTION" }],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "NOT_REQUIRED", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "NOT_REQUIRED", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "NOT_REQUIRED", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": ["get_order"] }
+    ],
+    "reference_replies": [
+      "Stop using the smoking battery, keep a safe distance if possible, and contact Product Safety immediately.",
+      "Discontinue use immediately and move away from the hot battery if safe; this requires immediate Product Safety escalation."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-008",
+    "expected_intent_codes": ["DELIVERY_DELAY"],
+    "expected_action_code": "ESCALATE_LOGISTICS",
+    "escalation_required": true,
+    "escalation_reason_code": "PAST_PROMISED_DATE_7D",
+    "target_queue": "LOGISTICS",
+    "required_citations": [{ "source_id": "DEL", "section_id": "6.1" }],
+    "allowed_citations": [{ "source_id": "DEL", "section_id": "6.1" }, { "source_id": "ORD", "section_id": "1.2" }],
+    "forbidden_action_codes": ["NO_ACTION"],
+    "required_reply_claims": [{ "claim_id": "DELAY-PAST-THRESHOLD", "alternatives": ["The order is eight days late and requires Logistics escalation.", "The delay exceeds seven days, so Logistics review is required."] }],
+    "forbidden_reply_literals": [
+      { "literal_id": "NO-EXACT-ARRIVAL-PROMISE", "literal": "I guarantee arrival on", "category": "UNSUPPORTED_ORDER_FACT" },
+      { "literal_id": "NO-COMPENSATION-GUARANTEE", "literal": "I guarantee compensation", "category": "POLICY_VIOLATION" }
+    ],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H008", "authenticated_customer_id": "CUS-H008" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "ORD-H008 is eight days past its promised date, so I would route it to Logistics without promising an arrival date or compensation.",
+      "The delay exceeds the seven-day threshold and requires Logistics escalation; an exact arrival or compensation cannot be guaranteed."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-009",
+    "expected_intent_codes": ["REFUND_REQUEST"],
+    "expected_action_code": "REFUND_STATUS_INFORMATION",
+    "escalation_required": false,
+    "escalation_reason_code": "NOT_REQUIRED",
+    "target_queue": "NONE",
+    "required_citations": [{ "source_id": "REF", "section_id": "7.1" }],
+    "allowed_citations": [{ "source_id": "REF", "section_id": "7.1" }],
+    "forbidden_action_codes": ["REFUND_APPROVED"],
+    "required_reply_claims": [{ "claim_id": "REFUND-DAY4-WITHIN-WINDOW", "alternatives": ["The approved refund is within the three-to-five-business-day window.", "Four business days is still within normal processing time."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-BANK-DATE-GUARANTEE", "literal": "I guarantee the refund will be in your bank today", "category": "POLICY_VIOLATION" }],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H009", "authenticated_customer_id": "CUS-H009" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "The approved refund is at business day four, within the normal three-to-five-day window; the bank completion date cannot be guaranteed.",
+      "Four business days remains within standard processing, but support cannot promise when the bank will post it."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-010",
+    "expected_intent_codes": ["PRIVACY_REQUEST"],
+    "expected_action_code": "VERIFY_IDENTITY",
+    "escalation_required": false,
+    "escalation_reason_code": "NOT_REQUIRED",
+    "target_queue": "NONE",
+    "required_citations": [{ "source_id": "PRI", "section_id": "9.1" }],
+    "allowed_citations": [{ "source_id": "PRI", "section_id": "9.1" }],
+    "forbidden_action_codes": ["PROVIDE_ORDER_STATUS"],
+    "required_reply_claims": [{ "claim_id": "VERIFY-WITHOUT-DISCLOSURE", "alternatives": ["I cannot disclose order details until ownership is verified.", "Please verify ownership before any order details can be shared."] }],
+    "forbidden_reply_literals": [],
+    "protected_order_fields": ["status", "total_amount", "placed_at", "shipped_at", "delivered_at", "carrier", "tracking_number"],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "DENIED", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "DENIED", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "DENIED", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H010", "authenticated_customer_id": "CUS-H010" }, "required_nonempty_arguments": [], "expected_result_code": "ORDER_OWNERSHIP_MISMATCH" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "I cannot disclose any details for ORD-H010 because ownership does not match the authenticated customer; please complete identity verification.",
+      "Order status, amount, dates, carrier, and tracking details remain private until the order owner is verified."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-011",
+    "expected_intent_codes": ["RETURN_REQUEST"],
+    "expected_action_code": "RETURN_ELIGIBLE",
+    "escalation_required": false,
+    "escalation_reason_code": "NOT_REQUIRED",
+    "target_queue": "NONE",
+    "required_citations": [{ "source_id": "RET", "section_id": "3.1" }],
+    "allowed_citations": [{ "source_id": "RET", "section_id": "3.1" }],
+    "forbidden_action_codes": ["DENY_RETURN"],
+    "required_reply_claims": [{ "claim_id": "ACTIVE-30D-NOT-RETIRED-14D", "alternatives": ["The active 30-day rule applies; the 14-day rule is retired.", "Use the current 30-day policy, not the retired 14-day version."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-RETIRED-14D", "literal": "I confirm that the 14-day policy applies", "category": "POLICY_VIOLATION" }],
+    "protected_order_fields": [],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H011", "authenticated_customer_id": "CUS-H011" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "The active 30-day policy applies, so the unopened item delivered 29 days ago is eligible; the 14-day rule is retired.",
+      "Use the current 30-day return window rather than the retired 14-day version, making ORD-H011 eligible."
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "H-012",
+    "expected_intent_codes": ["TOOL_FAILURE", "ORDER_STATUS"],
+    "expected_action_code": "REPORT_TOOL_UNAVAILABLE",
+    "escalation_required": true,
+    "escalation_reason_code": "TOOL_FAILURE",
+    "target_queue": "CUSTOMER_SUPPORT",
+    "required_citations": [],
+    "allowed_citations": [],
+    "forbidden_action_codes": ["PROVIDE_ORDER_STATUS"],
+    "required_reply_claims": [{ "claim_id": "LOOKUP-UNAVAILABLE-NO-GUESS", "alternatives": ["The order lookup timed out, so I cannot confirm the current status.", "Order data is unavailable and I will not guess its status."] }],
+    "forbidden_reply_literals": [{ "literal_id": "NO-GUESSED-SHIPPED", "literal": "I confirm your order is shipped", "category": "UNSUPPORTED_ORDER_FACT" }],
+    "protected_order_fields": ["status", "total_amount", "placed_at", "shipped_at", "delivered_at", "carrier", "tracking_number"],
+    "candidate_access_expectations": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "TIMEOUT", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "TIMEOUT", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "TIMEOUT", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+        { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-H012", "authenticated_customer_id": "CUS-H012" }, "required_nonempty_arguments": [], "expected_result_code": "TOOL_TIMEOUT" }
+      ], "forbidden_tool_calls": [] }
+    ],
+    "reference_replies": [
+      "The order lookup timed out, so I cannot confirm ORD-H012's current status and will route the issue to Customer Support.",
+      "Order data is currently unavailable; I will not guess the status and this requires Customer Support follow-up."
+    ]
+  }
+]

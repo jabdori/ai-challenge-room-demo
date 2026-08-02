@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+app/node_modules/
+app/dist/
+app/coverage/
+app/.vite/
+app/.runtime/
+app/.env
+app/.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
+.playwright-mcp/

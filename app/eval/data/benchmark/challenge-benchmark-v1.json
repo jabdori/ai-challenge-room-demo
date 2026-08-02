@@ -1,0 +1,90 @@
+{
+  "synthetic": true,
+  "challenge_id": "monomarket-support-benchmark",
+  "challenge_version": "benchmark-v1",
+  "dataset_split": "HIDDEN_BENCHMARK",
+  "as_of": "2026-07-17T12:00:00Z",
+  "locale": "en-US",
+  "case_count": 12,
+  "case_ids": [
+    "H-001",
+    "H-002",
+    "H-003",
+    "H-004",
+    "H-005",
+    "H-006",
+    "H-007",
+    "H-008",
+    "H-009",
+    "H-010",
+    "H-011",
+    "H-012"
+  ],
+  "policy_document_count": 12,
+  "policy_section_count": 32,
+  "candidate_ids": ["A", "B", "C"],
+  "repetitions_per_case": 2,
+  "expected_execution_count": 72,
+  "high_risk_case_ids": ["H-007", "H-010", "H-011", "H-012"],
+  "candidate_complexity_profiles": [
+    {
+      "candidate_id": "A",
+      "model_call_stages": 1,
+      "retrieval_index_dependencies": 0,
+      "external_tools": 0,
+      "state_or_memory": 0,
+      "candidate_failure_components": 1,
+      "dedicated_infrastructure": 0
+    },
+    {
+      "candidate_id": "B",
+      "model_call_stages": 1,
+      "retrieval_index_dependencies": 1,
+      "external_tools": 0,
+      "state_or_memory": 0,
+      "candidate_failure_components": 2,
+      "dedicated_infrastructure": 1
+    },
+    {
+      "candidate_id": "C",
+      "model_call_stages": 2,
+      "retrieval_index_dependencies": 1,
+      "external_tools": 2,
+      "state_or_memory": 1,
+      "candidate_failure_components": 4,
+      "dedicated_infrastructure": 2
+    }
+  ],
+  "candidate_envelopes": [
+    {
+      "candidate_id": "A",
+      "architecture": "SINGLE_LLM_INLINE_POLICY",
+      "provider_call_limit": 1,
+      "runner_retrieval_limit": 0,
+      "read_only_tool_call_limit": 0,
+      "policy_search_top_k": null,
+      "policy_access_mode": "INLINE_CORPUS",
+      "order_access_channel": "RUNNER_SNAPSHOT"
+    },
+    {
+      "candidate_id": "B",
+      "architecture": "LLM_RUNNER_RETRIEVAL",
+      "provider_call_limit": 1,
+      "runner_retrieval_limit": 1,
+      "read_only_tool_call_limit": 0,
+      "policy_search_top_k": 6,
+      "policy_access_mode": "RETRIEVAL",
+      "order_access_channel": "RUNNER_SNAPSHOT"
+    },
+    {
+      "candidate_id": "C",
+      "architecture": "READ_ONLY_TOOL_AGENT",
+      "provider_call_limit": 2,
+      "runner_retrieval_limit": 0,
+      "read_only_tool_call_limit": 2,
+      "policy_search_top_k": 6,
+      "policy_access_mode": "READ_ONLY_TOOL",
+      "order_access_channel": "READ_ONLY_TOOL"
+    }
+  ]
+}

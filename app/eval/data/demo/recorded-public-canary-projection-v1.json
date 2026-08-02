@@ -1,0 +1,561 @@
+{
+  "schema_version": "recorded-synthetic-demo-projection-v1",
+  "artifact_kind": "RECORDED_SYNTHETIC_DEMO_PROJECTION",
+  "synthetic": true,
+  "source": "RECORDED_SYNTHETIC_DEMO",
+  "evaluation_status": "EVALUATION_INCOMPLETE",
+  "pack_id": "calibration-pack-1d0d4af2c4428cb6",
+  "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+  "challenge_version": "challenge-abc-v1",
+  "baseline_version": null,
+  "case": {
+    "case_id": "C-001",
+    "count": 1
+  },
+  "coverage": {
+    "cases": 1,
+    "candidates": 3,
+    "runs_per_candidate": 2,
+    "completed_runs": 6,
+    "expected_runs": 6
+  },
+  "total_runtime_cost_usd": 0.037776625,
+  "summed_latency_ms": 18951,
+  "candidates": [
+    {
+      "candidate_id": "A",
+      "candidate_version": "candidate-a-v1",
+      "total_runtime_cost_usd": 0.007845,
+      "summed_latency_ms": 3284,
+      "provider_call_count": 2,
+      "retrieval_call_count": 0,
+      "tool_call_count": 0,
+      "runs": [
+        {
+          "evidence_id": "demo_evidence_b319a322d5d3b73cc35267d2bafe8c809fa7e6e127cda997a92e91be815d09b3",
+          "source": "RECORDED_SYNTHETIC_DEMO",
+          "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+          "case_id": "C-001",
+          "candidate_id": "A",
+          "candidate_version": "candidate-a-v1",
+          "run_number": 1,
+          "execution_status": "COMPLETE",
+          "evaluation_status": "EVALUATED",
+          "deterministic_gate": {
+            "evaluation_status": "EVALUATED",
+            "gate_code": "P0-HG-02",
+            "status": "PASS",
+            "findings": []
+          },
+          "output": {
+            "customer_reply": "I’m sorry, but because order ORD-1042 has already shipped, it can’t be cancelled or refunded now. Once it’s delivered, you may request a return.",
+            "decision": {
+              "intent_codes": [
+                "ORDER_CANCELLATION",
+                "REFUND_REQUEST",
+                "RETURN_REQUEST"
+              ],
+              "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+              "escalation_required": false,
+              "escalation_reason_code": "NOT_REQUIRED",
+              "target_queue": "NONE"
+            },
+            "citations": [
+              {
+                "source_id": "CANCEL-2026",
+                "section_id": "2.2"
+              }
+            ]
+          },
+          "cost_usd": 0.00399,
+          "summed_latency_ms": 1736,
+          "provider_call_count": 1,
+          "retrieval_call_count": 0,
+          "tool_call_count": 0
+        },
+        {
+          "evidence_id": "demo_evidence_a88115ad9093575ff887623ee2d3d3110d7bd5b86324a8c561fe525b3824b161",
+          "source": "RECORDED_SYNTHETIC_DEMO",
+          "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+          "case_id": "C-001",
+          "candidate_id": "A",
+          "candidate_version": "candidate-a-v1",
+          "run_number": 2,
+          "execution_status": "COMPLETE",
+          "evaluation_status": "EVALUATED",
+          "deterministic_gate": {
+            "evaluation_status": "EVALUATED",
+            "gate_code": "P0-HG-02",
+            "status": "PASS",
+            "findings": []
+          },
+          "output": {
+            "customer_reply": "Your order has already shipped, so it can’t be cancelled or refunded at this time. Once it’s delivered, you may request a return.",
+            "decision": {
+              "intent_codes": [
+                "ORDER_CANCELLATION",
+                "REFUND_REQUEST"
+              ],
+              "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+              "escalation_required": false,
+              "escalation_reason_code": "NOT_REQUIRED",
+              "target_queue": "NONE"
+            },
+            "citations": [
+              {
+                "source_id": "CANCEL-2026",
+                "section_id": "2.2"
+              }
+            ]
+          },
+          "cost_usd": 0.003855,
+          "summed_latency_ms": 1548,
+          "provider_call_count": 1,
+          "retrieval_call_count": 0,
+          "tool_call_count": 0
+        }
+      ]
+    },
+    {
+      "candidate_id": "B",
+      "candidate_version": "candidate-b-v1",
+      "total_runtime_cost_usd": 0.00759225,
+      "summed_latency_ms": 5842,
+      "provider_call_count": 2,
+      "retrieval_call_count": 2,
+      "tool_call_count": 0,
+      "runs": [
+        {
+          "evidence_id": "demo_evidence_106110a796574650479f11884948ba8d9c4966263b13eac3c1f0ac17f834db14",
+          "source": "RECORDED_SYNTHETIC_DEMO",
+          "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+          "case_id": "C-001",
+          "candidate_id": "B",
+          "candidate_version": "candidate-b-v1",
+          "run_number": 1,
+          "execution_status": "COMPLETE",
+          "evaluation_status": "EVALUATED",
+          "deterministic_gate": {
+            "evaluation_status": "EVALUATED",
+            "gate_code": "P0-HG-02",
+            "status": "PASS",
+            "findings": []
+          },
+          "output": {
+            "customer_reply": "I’m sorry, but order ORD-1042 has already shipped and can’t be cancelled or refunded now. Once it is delivered, you may request a return.",
+            "decision": {
+              "intent_codes": [
+                "ORDER_CANCELLATION",
+                "REFUND_REQUEST",
+                "RETURN_REQUEST"
+              ],
+              "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+              "escalation_required": false,
+              "escalation_reason_code": "NOT_REQUIRED",
+              "target_queue": "NONE"
+            },
+            "citations": [
+              {
+                "source_id": "CANCEL-2026",
+                "section_id": "2.2"
+              }
+            ]
+          },
+          "cost_usd": 0.00558625,
+          "summed_latency_ms": 3299,
+          "provider_call_count": 1,
+          "retrieval_call_count": 1,
+          "tool_call_count": 0
+        },
+        {
+          "evidence_id": "demo_evidence_11fcb7b75e7ee9bfd6389ce99a562e42cf61dd963b7390209a5adcf6fe4bab90",
+          "source": "RECORDED_SYNTHETIC_DEMO",
+          "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+          "case_id": "C-001",
+          "candidate_id": "B",
+          "candidate_version": "candidate-b-v1",
+          "run_number": 2,
+          "execution_status": "COMPLETE",
+          "evaluation_status": "EVALUATED",
+          "deterministic_gate": {
+            "evaluation_status": "EVALUATED",
+            "gate_code": "P0-HG-02",
+            "status": "PASS",
+            "findings": []
+          },
+          "output": {
+            "customer_reply": "I’m sorry, but order ORD-1042 can’t be cancelled because it has already shipped. You may request a return after it is delivered.",
+            "decision": {
+              "intent_codes": [
+                "ORDER_CANCELLATION",
+                "REFUND_REQUEST"
+              ],
+              "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+              "escalation_required": false,
+              "escalation_reason_code": "NOT_REQUIRED",
+              "target_queue": "NONE"
+            },
+            "citations": [
+              {
+                "source_id": "CANCEL-2026",
+                "section_id": "2.2"
+              }
+            ]
+          },
+          "cost_usd": 0.002006,
+          "summed_latency_ms": 2543,
+          "provider_call_count": 1,
+          "retrieval_call_count": 1,
+          "tool_call_count": 0
+        }
+      ]
+    },
+    {
+      "candidate_id": "C",
+      "candidate_version": "candidate-c-v1",
+      "total_runtime_cost_usd": 0.022339375,
+      "summed_latency_ms": 9825,
+      "provider_call_count": 6,
+      "retrieval_call_count": 2,
+      "tool_call_count": 4,
+      "runs": [
+        {
+          "evidence_id": "demo_evidence_99cc1c78141b0c41e5d9bd5468a79d9a13ecff6d80836f8d9bbd544aa67985af",
+          "source": "RECORDED_SYNTHETIC_DEMO",
+          "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+          "case_id": "C-001",
+          "candidate_id": "C",
+          "candidate_version": "candidate-c-v1",
+          "run_number": 1,
+          "execution_status": "COMPLETE",
+          "evaluation_status": "EVALUATED",
+          "deterministic_gate": {
+            "evaluation_status": "EVALUATED",
+            "gate_code": "P0-HG-02",
+            "status": "PASS",
+            "findings": []
+          },
+          "output": {
+            "customer_reply": "I’m sorry, but shipped orders can’t be cancelled. Once it’s delivered, you may request a return.",
+            "decision": {
+              "intent_codes": [
+                "ORDER_CANCELLATION",
+                "REFUND_REQUEST",
+                "RETURN_REQUEST"
+              ],
+              "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+              "escalation_required": false,
+              "escalation_reason_code": "NOT_REQUIRED",
+              "target_queue": "NONE"
+            },
+            "citations": [
+              {
+                "source_id": "CANCEL-2026",
+                "section_id": "2.2"
+              }
+            ]
+          },
+          "cost_usd": 0.011150625,
+          "summed_latency_ms": 5038,
+          "provider_call_count": 3,
+          "retrieval_call_count": 1,
+          "tool_call_count": 2
+        },
+        {
+          "evidence_id": "demo_evidence_b828ff54dadba733fd854ff6448219ab910cd50ad4ed538c2e3d2b0ea0c61e98",
+          "source": "RECORDED_SYNTHETIC_DEMO",
+          "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+          "case_id": "C-001",
+          "candidate_id": "C",
+          "candidate_version": "candidate-c-v1",
+          "run_number": 2,
+          "execution_status": "COMPLETE",
+          "evaluation_status": "EVALUATED",
+          "deterministic_gate": {
+            "evaluation_status": "EVALUATED",
+            "gate_code": "P0-HG-02",
+            "status": "PASS",
+            "findings": []
+          },
+          "output": {
+            "customer_reply": "Your order has already shipped, so it can’t be cancelled or refunded now. Once it’s delivered, you may request a return.",
+            "decision": {
+              "intent_codes": [
+                "ORDER_CANCELLATION",
+                "REFUND_REQUEST",
+                "RETURN_REQUEST"
+              ],
+              "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+              "escalation_required": false,
+              "escalation_reason_code": "NOT_REQUIRED",
+              "target_queue": "NONE"
+            },
+            "citations": [
+              {
+                "source_id": "CANCEL-2026",
+                "section_id": "2.2"
+              }
+            ]
+          },
+          "cost_usd": 0.01118875,
+          "summed_latency_ms": 4787,
+          "provider_call_count": 3,
+          "retrieval_call_count": 1,
+          "tool_call_count": 2
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "demo_evidence_b319a322d5d3b73cc35267d2bafe8c809fa7e6e127cda997a92e91be815d09b3",
+      "source": "RECORDED_SYNTHETIC_DEMO",
+      "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+      "case_id": "C-001",
+      "candidate_id": "A",
+      "candidate_version": "candidate-a-v1",
+      "run_number": 1,
+      "execution_status": "COMPLETE",
+      "evaluation_status": "EVALUATED",
+      "deterministic_gate": {
+        "evaluation_status": "EVALUATED",
+        "gate_code": "P0-HG-02",
+        "status": "PASS",
+        "findings": []
+      },
+      "output": {
+        "customer_reply": "I’m sorry, but because order ORD-1042 has already shipped, it can’t be cancelled or refunded now. Once it’s delivered, you may request a return.",
+        "decision": {
+          "intent_codes": [
+            "ORDER_CANCELLATION",
+            "REFUND_REQUEST",
+            "RETURN_REQUEST"
+          ],
+          "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+          "escalation_required": false,
+          "escalation_reason_code": "NOT_REQUIRED",
+          "target_queue": "NONE"
+        },
+        "citations": [
+          {
+            "source_id": "CANCEL-2026",
+            "section_id": "2.2"
+          }
+        ]
+      },
+      "cost_usd": 0.00399,
+      "summed_latency_ms": 1736,
+      "provider_call_count": 1,
+      "retrieval_call_count": 0,
+      "tool_call_count": 0
+    },
+    {
+      "evidence_id": "demo_evidence_a88115ad9093575ff887623ee2d3d3110d7bd5b86324a8c561fe525b3824b161",
+      "source": "RECORDED_SYNTHETIC_DEMO",
+      "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+      "case_id": "C-001",
+      "candidate_id": "A",
+      "candidate_version": "candidate-a-v1",
+      "run_number": 2,
+      "execution_status": "COMPLETE",
+      "evaluation_status": "EVALUATED",
+      "deterministic_gate": {
+        "evaluation_status": "EVALUATED",
+        "gate_code": "P0-HG-02",
+        "status": "PASS",
+        "findings": []
+      },
+      "output": {
+        "customer_reply": "Your order has already shipped, so it can’t be cancelled or refunded at this time. Once it’s delivered, you may request a return.",
+        "decision": {
+          "intent_codes": [
+            "ORDER_CANCELLATION",
+            "REFUND_REQUEST"
+          ],
+          "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+          "escalation_required": false,
+          "escalation_reason_code": "NOT_REQUIRED",
+          "target_queue": "NONE"
+        },
+        "citations": [
+          {
+            "source_id": "CANCEL-2026",
+            "section_id": "2.2"
+          }
+        ]
+      },
+      "cost_usd": 0.003855,
+      "summed_latency_ms": 1548,
+      "provider_call_count": 1,
+      "retrieval_call_count": 0,
+      "tool_call_count": 0
+    },
+    {
+      "evidence_id": "demo_evidence_106110a796574650479f11884948ba8d9c4966263b13eac3c1f0ac17f834db14",
+      "source": "RECORDED_SYNTHETIC_DEMO",
+      "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+      "case_id": "C-001",
+      "candidate_id": "B",
+      "candidate_version": "candidate-b-v1",
+      "run_number": 1,
+      "execution_status": "COMPLETE",
+      "evaluation_status": "EVALUATED",
+      "deterministic_gate": {
+        "evaluation_status": "EVALUATED",
+        "gate_code": "P0-HG-02",
+        "status": "PASS",
+        "findings": []
+      },
+      "output": {
+        "customer_reply": "I’m sorry, but order ORD-1042 has already shipped and can’t be cancelled or refunded now. Once it is delivered, you may request a return.",
+        "decision": {
+          "intent_codes": [
+            "ORDER_CANCELLATION",
+            "REFUND_REQUEST",
+            "RETURN_REQUEST"
+          ],
+          "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+          "escalation_required": false,
+          "escalation_reason_code": "NOT_REQUIRED",
+          "target_queue": "NONE"
+        },
+        "citations": [
+          {
+            "source_id": "CANCEL-2026",
+            "section_id": "2.2"
+          }
+        ]
+      },
+      "cost_usd": 0.00558625,
+      "summed_latency_ms": 3299,
+      "provider_call_count": 1,
+      "retrieval_call_count": 1,
+      "tool_call_count": 0
+    },
+    {
+      "evidence_id": "demo_evidence_11fcb7b75e7ee9bfd6389ce99a562e42cf61dd963b7390209a5adcf6fe4bab90",
+      "source": "RECORDED_SYNTHETIC_DEMO",
+      "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+      "case_id": "C-001",
+      "candidate_id": "B",
+      "candidate_version": "candidate-b-v1",
+      "run_number": 2,
+      "execution_status": "COMPLETE",
+      "evaluation_status": "EVALUATED",
+      "deterministic_gate": {
+        "evaluation_status": "EVALUATED",
+        "gate_code": "P0-HG-02",
+        "status": "PASS",
+        "findings": []
+      },
+      "output": {
+        "customer_reply": "I’m sorry, but order ORD-1042 can’t be cancelled because it has already shipped. You may request a return after it is delivered.",
+        "decision": {
+          "intent_codes": [
+            "ORDER_CANCELLATION",
+            "REFUND_REQUEST"
+          ],
+          "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+          "escalation_required": false,
+          "escalation_reason_code": "NOT_REQUIRED",
+          "target_queue": "NONE"
+        },
+        "citations": [
+          {
+            "source_id": "CANCEL-2026",
+            "section_id": "2.2"
+          }
+        ]
+      },
+      "cost_usd": 0.002006,
+      "summed_latency_ms": 2543,
+      "provider_call_count": 1,
+      "retrieval_call_count": 1,
+      "tool_call_count": 0
+    },
+    {
+      "evidence_id": "demo_evidence_99cc1c78141b0c41e5d9bd5468a79d9a13ecff6d80836f8d9bbd544aa67985af",
+      "source": "RECORDED_SYNTHETIC_DEMO",
+      "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+      "case_id": "C-001",
+      "candidate_id": "C",
+      "candidate_version": "candidate-c-v1",
+      "run_number": 1,
+      "execution_status": "COMPLETE",
+      "evaluation_status": "EVALUATED",
+      "deterministic_gate": {
+        "evaluation_status": "EVALUATED",
+        "gate_code": "P0-HG-02",
+        "status": "PASS",
+        "findings": []
+      },
+      "output": {
+        "customer_reply": "I’m sorry, but shipped orders can’t be cancelled. Once it’s delivered, you may request a return.",
+        "decision": {
+          "intent_codes": [
+            "ORDER_CANCELLATION",
+            "REFUND_REQUEST",
+            "RETURN_REQUEST"
+          ],
+          "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+          "escalation_required": false,
+          "escalation_reason_code": "NOT_REQUIRED",
+          "target_queue": "NONE"
+        },
+        "citations": [
+          {
+            "source_id": "CANCEL-2026",
+            "section_id": "2.2"
+          }
+        ]
+      },
+      "cost_usd": 0.011150625,
+      "summed_latency_ms": 5038,
+      "provider_call_count": 3,
+      "retrieval_call_count": 1,
+      "tool_call_count": 2
+    },
+    {
+      "evidence_id": "demo_evidence_b828ff54dadba733fd854ff6448219ab910cd50ad4ed538c2e3d2b0ea0c61e98",
+      "source": "RECORDED_SYNTHETIC_DEMO",
+      "source_hash": "d92a8eaaa7351027a50567fba503cdf67ca1c7c33d256d655f0a2b62a33883a3",
+      "case_id": "C-001",
+      "candidate_id": "C",
+      "candidate_version": "candidate-c-v1",
+      "run_number": 2,
+      "execution_status": "COMPLETE",
+      "evaluation_status": "EVALUATED",
+      "deterministic_gate": {
+        "evaluation_status": "EVALUATED",
+        "gate_code": "P0-HG-02",
+        "status": "PASS",
+        "findings": []
+      },
+      "output": {
+        "customer_reply": "Your order has already shipped, so it can’t be cancelled or refunded now. Once it’s delivered, you may request a return.",
+        "decision": {
+          "intent_codes": [
+            "ORDER_CANCELLATION",
+            "REFUND_REQUEST",
+            "RETURN_REQUEST"
+          ],
+          "action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+          "escalation_required": false,
+          "escalation_reason_code": "NOT_REQUIRED",
+          "target_queue": "NONE"
+        },
+        "citations": [
+          {
+            "source_id": "CANCEL-2026",
+            "section_id": "2.2"
+          }
+        ]
+      },
+      "cost_usd": 0.01118875,
+      "summed_latency_ms": 4787,
+      "provider_call_count": 3,
+      "retrieval_call_count": 1,
+      "tool_call_count": 2
+    }
+  ]
+}

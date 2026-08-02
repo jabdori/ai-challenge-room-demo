@@ -1,0 +1,900 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "1b1e0f1b-4a3b-447f-bded-e78d85744eb1",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "auth_failure_buckets": {
+      "name": "auth_failure_buckets",
+      "columns": {
+        "network_fingerprint": {
+          "name": "network_fingerprint",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "bucket_started_at_ms": {
+          "name": "bucket_started_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "failure_count": {
+          "name": "failure_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "blocked_until_ms": {
+          "name": "blocked_until_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "auth_failure_buckets_latest_idx": {
+          "name": "auth_failure_buckets_latest_idx",
+          "columns": [
+            "network_fingerprint",
+            "bucket_started_at_ms"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "auth_failure_buckets_pk": {
+          "columns": [
+            "network_fingerprint",
+            "bucket_started_at_ms"
+          ],
+          "name": "auth_failure_buckets_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "auth_failure_buckets_started_at_nonnegative": {
+          "name": "auth_failure_buckets_started_at_nonnegative",
+          "value": "\"auth_failure_buckets\".\"bucket_started_at_ms\" >= 0"
+        },
+        "auth_failure_buckets_failure_count_positive": {
+          "name": "auth_failure_buckets_failure_count_positive",
+          "value": "\"auth_failure_buckets\".\"failure_count\" >= 1"
+        },
+        "auth_failure_buckets_blocked_until_nonnegative": {
+          "name": "auth_failure_buckets_blocked_until_nonnegative",
+          "value": "\"auth_failure_buckets\".\"blocked_until_ms\" IS NULL OR \"auth_failure_buckets\".\"blocked_until_ms\" >= 0"
+        }
+      }
+    },
+    "candidate_selections": {
+      "name": "candidate_selections",
+      "columns": {
+        "execution_id": {
+          "name": "execution_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "candidate_id": {
+          "name": "candidate_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "rationale": {
+          "name": "rationale",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "source_hash": {
+          "name": "source_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "selected_at_ms": {
+          "name": "selected_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "candidate_selections_execution_id_executions_execution_id_fk": {
+          "name": "candidate_selections_execution_id_executions_execution_id_fk",
+          "tableFrom": "candidate_selections",
+          "tableTo": "executions",
+          "columnsFrom": [
+            "execution_id"
+          ],
+          "columnsTo": [
+            "execution_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "restrict"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "candidate_selections_candidate_id_enum": {
+          "name": "candidate_selections_candidate_id_enum",
+          "value": "\"candidate_selections\".\"candidate_id\" IN ('A', 'B', 'C')"
+        },
+        "candidate_selections_selected_at_nonnegative": {
+          "name": "candidate_selections_selected_at_nonnegative",
+          "value": "\"candidate_selections\".\"selected_at_ms\" >= 0"
+        }
+      }
+    },
+    "decision_memos": {
+      "name": "decision_memos",
+      "columns": {
+        "execution_id": {
+          "name": "execution_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "source_pack_hash": {
+          "name": "source_pack_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "review_hash": {
+          "name": "review_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "selection_hash": {
+          "name": "selection_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "artifact_namespace": {
+          "name": "artifact_namespace",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "artifact_object_key": {
+          "name": "artifact_object_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "artifact_sha256": {
+          "name": "artifact_sha256",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "artifact_byte_length": {
+          "name": "artifact_byte_length",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "error_code": {
+          "name": "error_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reconciliation_reason": {
+          "name": "reconciliation_reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "updated_at_ms": {
+          "name": "updated_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "decision_memos_execution_id_executions_execution_id_fk": {
+          "name": "decision_memos_execution_id_executions_execution_id_fk",
+          "tableFrom": "decision_memos",
+          "tableTo": "executions",
+          "columnsFrom": [
+            "execution_id"
+          ],
+          "columnsTo": [
+            "execution_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "restrict"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "decision_memos_status_enum": {
+          "name": "decision_memos_status_enum",
+          "value": "\"decision_memos\".\"status\" IN ('NOT_STARTED', 'RUNNING', 'FAILED', 'READY')"
+        },
+        "decision_memos_updated_at_nonnegative": {
+          "name": "decision_memos_updated_at_nonnegative",
+          "value": "\"decision_memos\".\"updated_at_ms\" >= 0"
+        },
+        "decision_memos_artifact_reference_complete": {
+          "name": "decision_memos_artifact_reference_complete",
+          "value": "(\n        \"decision_memos\".\"artifact_namespace\" IS NULL\n        AND \"decision_memos\".\"artifact_object_key\" IS NULL\n        AND \"decision_memos\".\"artifact_sha256\" IS NULL\n        AND \"decision_memos\".\"artifact_byte_length\" IS NULL\n      ) OR (\n        \"decision_memos\".\"artifact_namespace\" = 'decision-memos'\n        AND \"decision_memos\".\"artifact_object_key\" IS NOT NULL\n        AND \"decision_memos\".\"artifact_sha256\" IS NOT NULL\n        AND \"decision_memos\".\"artifact_byte_length\" >= 0\n      )"
+        }
+      }
+    },
+    "demo_sessions": {
+      "name": "demo_sessions",
+      "columns": {
+        "session_token_digest": {
+          "name": "session_token_digest",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at_ms": {
+          "name": "created_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires_at_ms": {
+          "name": "expires_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "revoked_at_ms": {
+          "name": "revoked_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "successful_live_runs": {
+          "name": "successful_live_runs",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "operational_retry_count": {
+          "name": "operational_retry_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "current_execution_id": {
+          "name": "current_execution_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "demo_sessions_created_at_nonnegative": {
+          "name": "demo_sessions_created_at_nonnegative",
+          "value": "\"demo_sessions\".\"created_at_ms\" >= 0"
+        },
+        "demo_sessions_expiry_after_creation": {
+          "name": "demo_sessions_expiry_after_creation",
+          "value": "\"demo_sessions\".\"expires_at_ms\" > \"demo_sessions\".\"created_at_ms\""
+        },
+        "demo_sessions_revoked_at_nonnegative": {
+          "name": "demo_sessions_revoked_at_nonnegative",
+          "value": "\"demo_sessions\".\"revoked_at_ms\" IS NULL OR \"demo_sessions\".\"revoked_at_ms\" >= 0"
+        },
+        "demo_sessions_successful_runs_nonnegative": {
+          "name": "demo_sessions_successful_runs_nonnegative",
+          "value": "\"demo_sessions\".\"successful_live_runs\" >= 0"
+        },
+        "demo_sessions_retry_count_nonnegative": {
+          "name": "demo_sessions_retry_count_nonnegative",
+          "value": "\"demo_sessions\".\"operational_retry_count\" >= 0"
+        }
+      }
+    },
+    "executions": {
+      "name": "executions",
+      "columns": {
+        "execution_id": {
+          "name": "execution_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "session_token_digest": {
+          "name": "session_token_digest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "idempotency_key": {
+          "name": "idempotency_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "progress_step": {
+          "name": "progress_step",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "current_candidate": {
+          "name": "current_candidate",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "completed_candidate_count": {
+          "name": "completed_candidate_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "created_at_ms": {
+          "name": "created_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "started_at_ms": {
+          "name": "started_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "heartbeat_at_ms": {
+          "name": "heartbeat_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "completed_at_ms": {
+          "name": "completed_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "retry_count": {
+          "name": "retry_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "error_code": {
+          "name": "error_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cleanup_status": {
+          "name": "cleanup_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'NOT_STARTED'"
+        },
+        "lease_token_digest": {
+          "name": "lease_token_digest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "lease_expires_at_ms": {
+          "name": "lease_expires_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "evaluation_pack_namespace": {
+          "name": "evaluation_pack_namespace",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "evaluation_pack_object_key": {
+          "name": "evaluation_pack_object_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "evaluation_pack_sha256": {
+          "name": "evaluation_pack_sha256",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "evaluation_pack_byte_length": {
+          "name": "evaluation_pack_byte_length",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "public_projection_namespace": {
+          "name": "public_projection_namespace",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "public_projection_object_key": {
+          "name": "public_projection_object_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "public_projection_sha256": {
+          "name": "public_projection_sha256",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "public_projection_byte_length": {
+          "name": "public_projection_byte_length",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cleanup_receipt_namespace": {
+          "name": "cleanup_receipt_namespace",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cleanup_receipt_object_key": {
+          "name": "cleanup_receipt_object_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cleanup_receipt_sha256": {
+          "name": "cleanup_receipt_sha256",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cleanup_receipt_byte_length": {
+          "name": "cleanup_receipt_byte_length",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "budget_bucket_started_at_ms": {
+          "name": "budget_bucket_started_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reserved_cost_micro_usd": {
+          "name": "reserved_cost_micro_usd",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "actual_cost_micro_usd": {
+          "name": "actual_cost_micro_usd",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "cost_reconciled_at_ms": {
+          "name": "cost_reconciled_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "source_hash": {
+          "name": "source_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "state_version": {
+          "name": "state_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "executions_idempotency_key_unique": {
+          "name": "executions_idempotency_key_unique",
+          "columns": [
+            "idempotency_key"
+          ],
+          "isUnique": true
+        },
+        "executions_one_active_per_session_idx": {
+          "name": "executions_one_active_per_session_idx",
+          "columns": [
+            "session_token_digest"
+          ],
+          "isUnique": true,
+          "where": "\"executions\".\"status\" NOT IN ('INTERRUPTED', 'FAILED', 'NO_APPROVED_CANDIDATE', 'REGRESSION_BLOCK')"
+        }
+      },
+      "foreignKeys": {
+        "executions_session_token_digest_demo_sessions_session_token_digest_fk": {
+          "name": "executions_session_token_digest_demo_sessions_session_token_digest_fk",
+          "tableFrom": "executions",
+          "tableTo": "demo_sessions",
+          "columnsFrom": [
+            "session_token_digest"
+          ],
+          "columnsTo": [
+            "session_token_digest"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "restrict"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "executions_source_enum": {
+          "name": "executions_source_enum",
+          "value": "\"executions\".\"source\" IN ('LIVE', 'RECORDED_FALLBACK')"
+        },
+        "executions_status_enum": {
+          "name": "executions_status_enum",
+          "value": "\"executions\".\"status\" IN ('READY', 'RUNNING', 'INTERRUPTED', 'FAILED', 'RESULTS_READY', 'JUDGE_READY', 'REVIEW_READY', 'NO_APPROVED_CANDIDATE', 'SELECTION_RECORDED', 'MEMO_RUNNING', 'MEMO_FAILED', 'MEMO_READY', 'REGRESSION_BLOCK')"
+        },
+        "executions_current_candidate_enum": {
+          "name": "executions_current_candidate_enum",
+          "value": "\"executions\".\"current_candidate\" IS NULL OR \"executions\".\"current_candidate\" IN ('A', 'B', 'C')"
+        },
+        "executions_completed_candidate_count_range": {
+          "name": "executions_completed_candidate_count_range",
+          "value": "\"executions\".\"completed_candidate_count\" BETWEEN 0 AND 3"
+        },
+        "executions_timestamps_nonnegative": {
+          "name": "executions_timestamps_nonnegative",
+          "value": "\"executions\".\"created_at_ms\" >= 0\n        AND (\"executions\".\"started_at_ms\" IS NULL OR \"executions\".\"started_at_ms\" >= 0)\n        AND (\"executions\".\"heartbeat_at_ms\" IS NULL OR \"executions\".\"heartbeat_at_ms\" >= 0)\n        AND (\"executions\".\"completed_at_ms\" IS NULL OR \"executions\".\"completed_at_ms\" >= 0)\n        AND (\"executions\".\"lease_expires_at_ms\" IS NULL OR \"executions\".\"lease_expires_at_ms\" >= 0)"
+        },
+        "executions_retry_count_nonnegative": {
+          "name": "executions_retry_count_nonnegative",
+          "value": "\"executions\".\"retry_count\" >= 0"
+        },
+        "executions_cleanup_status_enum": {
+          "name": "executions_cleanup_status_enum",
+          "value": "\"executions\".\"cleanup_status\" IN ('NOT_STARTED', 'RUNNING', 'ACKNOWLEDGED', 'FAILED')"
+        },
+        "executions_cost_nonnegative": {
+          "name": "executions_cost_nonnegative",
+          "value": "\"executions\".\"reserved_cost_micro_usd\" >= 0 AND \"executions\".\"actual_cost_micro_usd\" >= 0"
+        },
+        "executions_budget_timestamps_nonnegative": {
+          "name": "executions_budget_timestamps_nonnegative",
+          "value": "(\"executions\".\"budget_bucket_started_at_ms\" IS NULL OR \"executions\".\"budget_bucket_started_at_ms\" >= 0)\n        AND (\"executions\".\"cost_reconciled_at_ms\" IS NULL OR \"executions\".\"cost_reconciled_at_ms\" >= 0)"
+        },
+        "executions_state_version_nonnegative": {
+          "name": "executions_state_version_nonnegative",
+          "value": "\"executions\".\"state_version\" >= 0"
+        },
+        "executions_evaluation_pack_reference_complete": {
+          "name": "executions_evaluation_pack_reference_complete",
+          "value": "(\n        \"executions\".\"evaluation_pack_namespace\" IS NULL\n        AND \"executions\".\"evaluation_pack_object_key\" IS NULL\n        AND \"executions\".\"evaluation_pack_sha256\" IS NULL\n        AND \"executions\".\"evaluation_pack_byte_length\" IS NULL\n      ) OR (\n        \"executions\".\"evaluation_pack_namespace\" IS NOT NULL\n        AND \"executions\".\"evaluation_pack_object_key\" IS NOT NULL\n        AND \"executions\".\"evaluation_pack_sha256\" IS NOT NULL\n        AND \"executions\".\"evaluation_pack_byte_length\" >= 0\n      )"
+        },
+        "executions_public_projection_reference_complete": {
+          "name": "executions_public_projection_reference_complete",
+          "value": "(\n        \"executions\".\"public_projection_namespace\" IS NULL\n        AND \"executions\".\"public_projection_object_key\" IS NULL\n        AND \"executions\".\"public_projection_sha256\" IS NULL\n        AND \"executions\".\"public_projection_byte_length\" IS NULL\n      ) OR (\n        \"executions\".\"public_projection_namespace\" IN ('candidate-evidence', 'recorded-fallback')\n        AND \"executions\".\"public_projection_object_key\" IS NOT NULL\n        AND \"executions\".\"public_projection_sha256\" IS NOT NULL\n        AND \"executions\".\"public_projection_byte_length\" >= 0\n      )"
+        },
+        "executions_cleanup_receipt_reference_complete": {
+          "name": "executions_cleanup_receipt_reference_complete",
+          "value": "(\n        \"executions\".\"cleanup_receipt_namespace\" IS NULL\n        AND \"executions\".\"cleanup_receipt_object_key\" IS NULL\n        AND \"executions\".\"cleanup_receipt_sha256\" IS NULL\n        AND \"executions\".\"cleanup_receipt_byte_length\" IS NULL\n      ) OR (\n        \"executions\".\"cleanup_receipt_namespace\" IS NOT NULL\n        AND \"executions\".\"cleanup_receipt_object_key\" IS NOT NULL\n        AND \"executions\".\"cleanup_receipt_sha256\" IS NOT NULL\n        AND \"executions\".\"cleanup_receipt_byte_length\" >= 0\n      )"
+        }
+      }
+    },
+    "human_reviews": {
+      "name": "human_reviews",
+      "columns": {
+        "execution_id": {
+          "name": "execution_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "blind_label": {
+          "name": "blind_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "decision": {
+          "name": "decision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "rationale": {
+          "name": "rationale",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "corrected_reply": {
+          "name": "corrected_reply",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "review_duration_ms": {
+          "name": "review_duration_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "edit_duration_ms": {
+          "name": "edit_duration_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "confirmed_at_ms": {
+          "name": "confirmed_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "source_hash": {
+          "name": "source_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "human_reviews_execution_id_executions_execution_id_fk": {
+          "name": "human_reviews_execution_id_executions_execution_id_fk",
+          "tableFrom": "human_reviews",
+          "tableTo": "executions",
+          "columnsFrom": [
+            "execution_id"
+          ],
+          "columnsTo": [
+            "execution_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "restrict"
+        }
+      },
+      "compositePrimaryKeys": {
+        "human_reviews_pk": {
+          "columns": [
+            "execution_id",
+            "blind_label"
+          ],
+          "name": "human_reviews_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "human_reviews_blind_label_enum": {
+          "name": "human_reviews_blind_label_enum",
+          "value": "\"human_reviews\".\"blind_label\" IN ('X', 'Y', 'Z')"
+        },
+        "human_reviews_decision_enum": {
+          "name": "human_reviews_decision_enum",
+          "value": "\"human_reviews\".\"decision\" IN ('PASS', 'CONFIRMED_FAIL')"
+        },
+        "human_reviews_durations_nonnegative": {
+          "name": "human_reviews_durations_nonnegative",
+          "value": "\"human_reviews\".\"review_duration_ms\" >= 0 AND \"human_reviews\".\"edit_duration_ms\" >= 0"
+        },
+        "human_reviews_confirmed_at_nonnegative": {
+          "name": "human_reviews_confirmed_at_nonnegative",
+          "value": "\"human_reviews\".\"confirmed_at_ms\" >= 0"
+        }
+      }
+    },
+    "usage_budgets": {
+      "name": "usage_budgets",
+      "columns": {
+        "bucket_started_at_ms": {
+          "name": "bucket_started_at_ms",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "reserved_run_count": {
+          "name": "reserved_run_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "confirmed_run_count": {
+          "name": "confirmed_run_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "reserved_cost_micro_usd": {
+          "name": "reserved_cost_micro_usd",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "confirmed_cost_micro_usd": {
+          "name": "confirmed_cost_micro_usd",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "failed_request_cost_micro_usd": {
+          "name": "failed_request_cost_micro_usd",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "last_reservation_token": {
+          "name": "last_reservation_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_reconciliation_token": {
+          "name": "last_reconciliation_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "updated_at_ms": {
+          "name": "updated_at_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "usage_budgets_bucket_started_at_nonnegative": {
+          "name": "usage_budgets_bucket_started_at_nonnegative",
+          "value": "\"usage_budgets\".\"bucket_started_at_ms\" >= 0"
+        },
+        "usage_budgets_values_nonnegative": {
+          "name": "usage_budgets_values_nonnegative",
+          "value": "\"usage_budgets\".\"reserved_run_count\" >= 0\n        AND \"usage_budgets\".\"confirmed_run_count\" >= 0\n        AND \"usage_budgets\".\"reserved_cost_micro_usd\" >= 0\n        AND \"usage_budgets\".\"confirmed_cost_micro_usd\" >= 0\n        AND \"usage_budgets\".\"failed_request_cost_micro_usd\" >= 0\n        AND \"usage_budgets\".\"updated_at_ms\" >= 0"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

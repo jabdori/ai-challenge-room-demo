@@ -1,0 +1,91 @@
+[
+  {
+    "synthetic": true,
+    "case_id": "R-001",
+    "injector_mode": "PASS_THROUGH",
+    "requested_order_id": "ORD-R001",
+    "returned_order": null,
+    "candidate_results": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R001" },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R001" },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R001" }
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "R-002",
+    "injector_mode": "PASS_THROUGH",
+    "requested_order_id": "ORD-R002",
+    "returned_order": null,
+    "candidate_results": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R002" },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R002" },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R002" }
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "R-003",
+    "injector_mode": "NOT_REQUIRED",
+    "requested_order_id": null,
+    "returned_order": null,
+    "candidate_results": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "status": "NOT_REQUIRED", "result_code": "NOT_REQUIRED", "candidate_payload_order_id": null },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "status": "NOT_REQUIRED", "result_code": "NOT_REQUIRED", "candidate_payload_order_id": null },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "status": "NOT_REQUIRED", "result_code": "NOT_REQUIRED", "candidate_payload_order_id": null }
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "R-004",
+    "injector_mode": "PASS_THROUGH",
+    "requested_order_id": "ORD-R004",
+    "returned_order": null,
+    "candidate_results": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R004" },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R004" },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R004" }
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "R-005",
+    "injector_mode": "PASS_THROUGH",
+    "requested_order_id": "ORD-R005",
+    "returned_order": null,
+    "candidate_results": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R005" },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R005" },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "status": "SUCCESS", "result_code": "OK", "candidate_payload_order_id": "ORD-R005" }
+    ]
+  },
+  {
+    "synthetic": true,
+    "case_id": "R-006",
+    "injector_mode": "RETURN_DIFFERENT_ORDER",
+    "requested_order_id": "ORD-R006",
+    "returned_order": {
+      "synthetic": true,
+      "order_id": "ORD-R006-WRONG",
+      "customer_id": "CUS-FOREIGN-R006",
+      "status": "SHIPPED",
+      "fulfillment_locked": true,
+      "placed_at": "2026-07-10T09:00:00Z",
+      "shipped_at": "2026-07-12T09:00:00Z",
+      "delivered_at": null,
+      "promised_delivery_date": "2026-07-19",
+      "total_amount": 499,
+      "currency": "USD",
+      "carrier": "WrongCarrier",
+      "tracking_number": "WRONG-TRK-R006",
+      "refund_status": null,
+      "refund_approved_at": null,
+      "items": [{ "synthetic": true, "product_id": "PRD-R006-WRONG", "category": "ELECTRONICS", "condition": "NEW", "custom_made": false, "final_sale": false, "damaged": false, "opened": false, "defective": false }]
+    },
+    "candidate_results": [
+      { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "status": "MISMATCH", "result_code": "ORDER_RESULT_MISMATCH", "candidate_payload_order_id": null },
+      { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "status": "MISMATCH", "result_code": "ORDER_RESULT_MISMATCH", "candidate_payload_order_id": null },
+      { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "status": "MISMATCH", "result_code": "ORDER_RESULT_MISMATCH", "candidate_payload_order_id": null }
+    ]
+  }
+]

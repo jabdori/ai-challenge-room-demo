@@ -1,0 +1,18 @@
+{
+  "synthetic": true,
+  "case_id": "C-001",
+  "dataset_split": "PUBLIC_CALIBRATION",
+  "case_family": "ORDER_CANCELLATION_AFTER_SHIPMENT",
+  "as_of": "2026-07-17T00:00:00Z",
+  "locale": "en-US",
+  "authenticated_customer_id": "CUS-0101",
+  "order_id": "ORD-1042",
+  "order_context_authorized": true,
+  "ticket_messages": [
+    {
+      "synthetic": true,
+      "role": "customer",
+      "content": "My order ORD-1042 has already shipped, but I no longer want it. Please cancel the order and refund me now."
+    }
+  ]
+}

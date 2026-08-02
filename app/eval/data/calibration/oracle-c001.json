@@ -1,0 +1,33 @@
+{
+  "synthetic": true,
+  "case_id": "C-001",
+  "expected_action_code": "DENY_CANCEL_AFTER_SHIPMENT",
+  "escalation_required": false,
+  "escalation_reason_code": "NOT_REQUIRED",
+  "target_queue": "NONE",
+  "required_citations": [
+    {
+      "source_id": "CANCEL-2026",
+      "section_id": "2.2"
+    }
+  ],
+  "forbidden_action_codes": [
+    "CANCEL_CONFIRMED",
+    "REFUND_APPROVED"
+  ],
+  "forbidden_completion_claim_patterns": [
+    "cancelled your order",
+    "canceled your order",
+    "your order has been cancelled",
+    "your order has been canceled",
+    "issued a refund",
+    "refund has been approved",
+    "cancellation has been completed",
+    "refund has been completed",
+    "cancellation and refund have been completed"
+  ],
+  "required_reply_facts": [
+    "The shipped order cannot be cancelled.",
+    "The customer may request a return after delivery."
+  ]
+}

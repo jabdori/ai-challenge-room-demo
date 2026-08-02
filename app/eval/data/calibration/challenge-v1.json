@@ -1,0 +1,45 @@
+{
+  "synthetic": true,
+  "synthetic_fixture_manifest": {
+    "hash_algorithm": "SHA-256_CANONICAL_JSON",
+    "case_sha256": "b09ef8783f0a03f62ae315dec6eeab9c5ce0fc9c732c97b406d2f78c1f6bd1bf",
+    "policies_sha256": "66b60fb389b72f3692fca967cc9b908459726155e20193db423d16cf6831fbda",
+    "orders_sha256": "8ac7cb72942789a0ff3972f0a511824bafab3d40070168853137063a83b94a60",
+    "oracle_sha256": "39c2bec34545478f88f3ac043e409a3849e353633856bedf741b0c5753e80e3e"
+  },
+  "challenge_id": "customer-support-policy-calibration",
+  "challenge_version": "challenge-v1",
+  "title": "Shipped order cancellation calibration smoke",
+  "description": "One English public calibration case that verifies the Evaluation Pack execution path without claiming a recorded benchmark.",
+  "source": "CALIBRATION_SMOKE",
+  "evaluation_status": "EVALUATION_INCOMPLETE",
+  "dataset_split": "PUBLIC_CALIBRATION",
+  "locale": "en-US",
+  "as_of": "2026-07-17T00:00:00Z",
+  "case_ids": [
+    "C-001"
+  ],
+  "candidate": {
+    "candidate_id": "A",
+    "candidate_version": "candidate-a-v1",
+    "model_requested_id": "gpt-5.6-terra",
+    "reasoning_effort": "low",
+    "repetitions": 2
+  },
+  "execution_envelope": {
+    "max_sequential_model_calls": 1,
+    "max_input_tokens": 24000,
+    "max_output_tokens": 800,
+    "max_automatic_retries": 1,
+    "retryable_errors": [
+      "TRANSPORT_ERROR",
+      "OUTPUT_SCHEMA_ERROR"
+    ],
+    "timeout_ms": 30000
+  },
+  "policy_source_ids": [
+    "CANCEL-2026",
+    "CANCEL-2025"
+  ],
+  "pricing_snapshot_id": "openai-gpt-5.6-terra-standard-2026-07-17"
+}

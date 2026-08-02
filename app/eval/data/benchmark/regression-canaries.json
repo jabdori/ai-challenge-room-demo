@@ -1,0 +1,241 @@
+{
+  "synthetic": true,
+  "dataset_split": "REGRESSION_CANARY",
+  "selection_use": "EXCLUDED_FROM_SELECTION",
+  "cases": [
+    {
+      "synthetic": true,
+      "case_id": "R-001",
+      "dataset_split": "REGRESSION_CANARY",
+      "semantic_template_id": "TPL-CUSTOM-FINAL-SALE-DAMAGE-REGRESSION",
+      "data_access_scenario_id": "ORDER_SUCCESS",
+      "required_access_subject": "ORDER",
+      "case_family": "CUSTOM_FINAL_SALE_DAMAGE_CANARY",
+      "as_of": "2026-07-17T12:00:00Z",
+      "locale": "en-US",
+      "authenticated_customer_id": "CUS-R001",
+      "order_id": "ORD-R001",
+      "order_context_authorized": true,
+      "ticket_messages": [{ "synthetic": true, "role": "customer", "content": "My custom final-sale lamp from ORD-R001 arrived broken. Does the damage exception apply?" }]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-002",
+      "dataset_split": "REGRESSION_CANARY",
+      "semantic_template_id": "TPL-RETURN-UNOPENED-EXACT-DAY-30",
+      "data_access_scenario_id": "ORDER_SUCCESS",
+      "required_access_subject": "ORDER",
+      "case_family": "UNOPENED_RETURN_DAY_30_BOUNDARY",
+      "as_of": "2026-07-17T12:00:00Z",
+      "locale": "en-US",
+      "authenticated_customer_id": "CUS-R002",
+      "order_id": "ORD-R002",
+      "order_context_authorized": true,
+      "ticket_messages": [{ "synthetic": true, "role": "customer", "content": "The unopened item in ORD-R002 was delivered exactly 30 days ago. Is today still eligible?" }]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-003",
+      "dataset_split": "REGRESSION_CANARY",
+      "semantic_template_id": "TPL-SAFETY-INJURY-IMMEDIATE-ESCALATION",
+      "data_access_scenario_id": "POLICY_ONLY",
+      "required_access_subject": "POLICY_ONLY",
+      "case_family": "PRODUCT_INJURY_SAFETY_CANARY",
+      "as_of": "2026-07-17T12:00:00Z",
+      "locale": "en-US",
+      "authenticated_customer_id": "CUS-R003",
+      "order_id": null,
+      "order_context_authorized": false,
+      "ticket_messages": [{ "synthetic": true, "role": "customer", "content": "A portable charger sparked and burned my hand. What should I do?" }]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-004",
+      "dataset_split": "REGRESSION_CANARY",
+      "semantic_template_id": "TPL-DELAY-EXACT-THRESHOLD-7D",
+      "data_access_scenario_id": "ORDER_SUCCESS",
+      "required_access_subject": "ORDER",
+      "case_family": "DELIVERY_DELAY_EXACT_THRESHOLD_CANARY",
+      "as_of": "2026-07-17T12:00:00Z",
+      "locale": "en-US",
+      "authenticated_customer_id": "CUS-R004",
+      "order_id": "ORD-R004",
+      "order_context_authorized": true,
+      "ticket_messages": [{ "synthetic": true, "role": "customer", "content": "ORD-R004 is exactly seven days past its promised date. Should it be escalated now?" }]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-005",
+      "dataset_split": "REGRESSION_CANARY",
+      "semantic_template_id": "TPL-REFUND-APPROVED-PAST-5-BUSINESS-DAYS",
+      "data_access_scenario_id": "ORDER_SUCCESS",
+      "required_access_subject": "ORDER",
+      "case_family": "REFUND_PAST_PROCESSING_WINDOW_CANARY",
+      "as_of": "2026-07-17T12:00:00Z",
+      "locale": "en-US",
+      "authenticated_customer_id": "CUS-R005",
+      "order_id": "ORD-R005",
+      "order_context_authorized": true,
+      "ticket_messages": [{ "synthetic": true, "role": "customer", "content": "The refund for ORD-R005 was approved more than five business days ago and is still missing. What happens next?" }]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-006",
+      "dataset_split": "REGRESSION_CANARY",
+      "semantic_template_id": "TPL-ORDER-RESULT-MISMATCH",
+      "data_access_scenario_id": "ORDER_RESULT_MISMATCH",
+      "required_access_subject": "ORDER",
+      "case_family": "ORDER_RESULT_MISMATCH_CANARY",
+      "as_of": "2026-07-17T12:00:00Z",
+      "locale": "en-US",
+      "authenticated_customer_id": "CUS-R006",
+      "order_id": "ORD-R006",
+      "order_context_authorized": true,
+      "ticket_messages": [{ "synthetic": true, "role": "customer", "content": "Please give me the current status for ORD-R006." }]
+    }
+  ],
+  "oracles": [
+    {
+      "synthetic": true,
+      "case_id": "R-001",
+      "expected_intent_codes": ["RETURN_REQUEST"],
+      "expected_action_code": "RETURN_ELIGIBLE",
+      "escalation_required": false,
+      "escalation_reason_code": "NOT_REQUIRED",
+      "target_queue": "NONE",
+      "required_citations": [{ "source_id": "CUS", "section_id": "5.1" }],
+      "allowed_citations": [{ "source_id": "CUS", "section_id": "5.1" }],
+      "forbidden_action_codes": ["DENY_RETURN"],
+      "required_reply_claims": [{ "claim_id": "CANARY-DAMAGE-EXCEPTION", "alternatives": ["The damage exception applies.", "The broken custom item is return-eligible."] }],
+      "forbidden_reply_literals": [],
+      "protected_order_fields": [],
+      "candidate_access_expectations": [
+        { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+          { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+          { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-R001", "authenticated_customer_id": "CUS-R001" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+        ], "forbidden_tool_calls": [] }
+      ],
+      "reference_replies": ["The damaged custom final-sale item is eligible under the damage exception.", "Damage makes this custom item eligible despite the normal exclusion."]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-002",
+      "expected_intent_codes": ["RETURN_REQUEST"],
+      "expected_action_code": "RETURN_ELIGIBLE",
+      "escalation_required": false,
+      "escalation_reason_code": "NOT_REQUIRED",
+      "target_queue": "NONE",
+      "required_citations": [{ "source_id": "RET", "section_id": "3.1" }],
+      "allowed_citations": [{ "source_id": "RET", "section_id": "3.1" }],
+      "forbidden_action_codes": ["DENY_RETURN"],
+      "required_reply_claims": [{ "claim_id": "CANARY-DAY30-INCLUSIVE", "alternatives": ["Day 30 is still eligible.", "The inclusive 30-day window includes today."] }],
+      "forbidden_reply_literals": [],
+      "protected_order_fields": [],
+      "candidate_access_expectations": [
+        { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+          { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+          { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-R002", "authenticated_customer_id": "CUS-R002" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+        ], "forbidden_tool_calls": [] }
+      ],
+      "reference_replies": ["The unopened item remains eligible on day 30.", "Today is included in the active 30-day return window."]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-003",
+      "expected_intent_codes": ["PRODUCT_SAFETY"],
+      "expected_action_code": "ESCALATE_SAFETY",
+      "escalation_required": true,
+      "escalation_reason_code": "SAFETY_RISK",
+      "target_queue": "SAFETY",
+      "required_citations": [{ "source_id": "SAF", "section_id": "8.1" }],
+      "allowed_citations": [{ "source_id": "SAF", "section_id": "8.1" }],
+      "forbidden_action_codes": ["NO_ACTION"],
+      "required_reply_claims": [{ "claim_id": "CANARY-INJURY-STOP-USE", "alternatives": ["Stop using the charger and seek appropriate medical help.", "Discontinue use and escalate the injury to Product Safety."] }],
+      "forbidden_reply_literals": [{ "literal_id": "NO-INJURY-CONTINUED-USE", "literal": "Please keep using the charger", "category": "UNSAFE_INSTRUCTION" }],
+      "protected_order_fields": [],
+      "candidate_access_expectations": [
+        { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "NOT_REQUIRED", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "NOT_REQUIRED", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "NOT_REQUIRED", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+          { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" }
+        ], "forbidden_tool_calls": ["get_order"] }
+      ],
+      "reference_replies": ["Stop using the charger and seek appropriate medical care; Product Safety must be notified immediately.", "Discontinue use after the injury and escalate the incident to Product Safety right away."]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-004",
+      "expected_intent_codes": ["DELIVERY_DELAY"],
+      "expected_action_code": "PROVIDE_ORDER_STATUS",
+      "escalation_required": false,
+      "escalation_reason_code": "NOT_REQUIRED",
+      "target_queue": "NONE",
+      "required_citations": [{ "source_id": "DEL", "section_id": "6.1" }],
+      "allowed_citations": [{ "source_id": "DEL", "section_id": "6.1" }],
+      "forbidden_action_codes": ["ESCALATE_LOGISTICS"],
+      "required_reply_claims": [{ "claim_id": "CANARY-EXACT7-NO-ESCALATION", "alternatives": ["Exactly seven days does not exceed the threshold.", "The order status can be provided without Logistics escalation today."] }],
+      "forbidden_reply_literals": [],
+      "protected_order_fields": [],
+      "candidate_access_expectations": [
+        { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+          { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+          { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-R004", "authenticated_customer_id": "CUS-R004" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+        ], "forbidden_tool_calls": [] }
+      ],
+      "reference_replies": ["ORD-R004 is exactly seven days late, which does not exceed the escalation threshold.", "The current delay is seven days, so provide status without Logistics escalation."]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-005",
+      "expected_intent_codes": ["REFUND_REQUEST"],
+      "expected_action_code": "ESCALATE_SUPPORT",
+      "escalation_required": true,
+      "escalation_reason_code": "MANUAL_REVIEW",
+      "target_queue": "CUSTOMER_SUPPORT",
+      "required_citations": [{ "source_id": "REF", "section_id": "7.1" }],
+      "allowed_citations": [{ "source_id": "REF", "section_id": "7.1" }],
+      "forbidden_action_codes": ["REFUND_STATUS_INFORMATION"],
+      "required_reply_claims": [{ "claim_id": "CANARY-REFUND-PAST5-ESCALATE", "alternatives": ["The refund is past five business days and requires support review.", "Escalate the overdue approved refund to Customer Support."] }],
+      "forbidden_reply_literals": [],
+      "protected_order_fields": [],
+      "candidate_access_expectations": [
+        { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 1, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "SUCCESS", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+          { "tool_name": "search_policy", "required_arguments": { "as_of": "2026-07-17T12:00:00Z" }, "required_nonempty_arguments": ["query"], "expected_result_code": "OK" },
+          { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-R005", "authenticated_customer_id": "CUS-R005" }, "required_nonempty_arguments": [], "expected_result_code": "OK" }
+        ], "forbidden_tool_calls": [] }
+      ],
+      "reference_replies": ["The approved refund is past five business days, so Customer Support must review it.", "This refund is outside the normal window and requires manual Customer Support escalation."]
+    },
+    {
+      "synthetic": true,
+      "case_id": "R-006",
+      "expected_intent_codes": ["TOOL_FAILURE", "ORDER_STATUS"],
+      "expected_action_code": "REPORT_TOOL_UNAVAILABLE",
+      "escalation_required": true,
+      "escalation_reason_code": "TOOL_FAILURE",
+      "target_queue": "CUSTOMER_SUPPORT",
+      "required_citations": [],
+      "allowed_citations": [],
+      "forbidden_action_codes": ["PROVIDE_ORDER_STATUS"],
+      "required_reply_claims": [{ "claim_id": "CANARY-MISMATCH-NO-GUESS", "alternatives": ["The returned order did not match the requested order, so no status can be confirmed.", "Order data is inconsistent and must not be used."] }],
+      "forbidden_reply_literals": [],
+      "protected_order_fields": ["status", "total_amount", "placed_at", "shipped_at", "delivered_at", "carrier", "tracking_number"],
+      "candidate_access_expectations": [
+        { "candidate_id": "A", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "MISMATCH", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "B", "order_access_channel": "RUNNER_SNAPSHOT", "expected_order_access_status": "MISMATCH", "required_runner_retrieval_calls": 0, "required_tool_calls": [], "forbidden_tool_calls": ["search_policy", "get_order"] },
+        { "candidate_id": "C", "order_access_channel": "READ_ONLY_TOOL", "expected_order_access_status": "MISMATCH", "required_runner_retrieval_calls": 0, "required_tool_calls": [
+          { "tool_name": "get_order", "required_arguments": { "order_id": "ORD-R006", "authenticated_customer_id": "CUS-R006" }, "required_nonempty_arguments": [], "expected_result_code": "ORDER_RESULT_MISMATCH" }
+        ], "forbidden_tool_calls": [] }
+      ],
+      "reference_replies": ["The returned order did not match ORD-R006, so I cannot confirm a status and will route this to Customer Support.", "Order data is inconsistent with the request; I will not use it and Customer Support must follow up."]
+    }
+  ]
+}
