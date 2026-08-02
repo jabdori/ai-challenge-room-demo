@@ -126,13 +126,6 @@ The hosted end-to-end flow additionally requires Cloudflare D1/R2 bindings and s
 
 Codex helped translate the product requirements into the shared candidate contract, OpenAI integrations, deterministic evaluation boundaries, hosted Worker architecture, evidence-first UI, and automated regression coverage. Real provider failures were classified as platform defects, candidate failures, or external operating issues and converted into repeatable tests instead of being hidden or tuned away.
 
-## Portfolio status
-
-- OpenAI Build Week submission: completed
-- Category: Work & Productivity
-- Demo video: under three minutes
-- Public snapshot source: private repository commit `72b3958cb8f737f8739c83727cc230014e188ca9`
-
 ## Copyright
 
 Copyright © 2026. All rights reserved. Published for portfolio review.
